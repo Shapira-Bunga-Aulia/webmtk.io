@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Keuangan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Kalkulator Bunga dan Anuitas</h1>
+
+        <!-- Form Bunga Majemuk -->
+        <h2>Bunga Majemuk</h2>
+        <form id="compoundInterestForm" action="calculate.php" method="POST">
+            <label for="principal">Modal Awal (Rp):</label>
+            <input type="number" id="principal" name="principal" required>
+            
+            <label for="rate">Suku Bunga (%) per tahun:</label>
+            <input type="number" id="rate" name="rate" step="0.01" required>
+            
+            <label for="time">Waktu (tahun):</label>
+            <input type="number" id="time" name="time" required>
+            
+            <label for="frequency">Frekuensi Kapitalisasi (per tahun):</label>
+            <input type="number" id="frequency" name="frequency" required>
+            
+            <button type="submit" name="compound_interest">Hitung Bunga Majemuk</button>
+        </form>
+        
+        <div id="compoundResult"></div>
+
+        <!-- Form Bunga Tunggal -->
+        <h2>Bunga Tunggal</h2>
+        <form id="simpleInterestForm" action="calculate.php" method="POST">
+            <label for="principal_simple">Modal Awal (Rp):</label>
+            <input type="number" id="principal_simple" name="principal_simple" required>
+            
+            <label for="rate_simple">Suku Bunga (%) per tahun:</label>
+            <input type="number" id="rate_simple" name="rate_simple" step="0.01" required>
+            
+            <label for="time_simple">Waktu (tahun):</label>
+            <input type="number" id="time_simple" name="time_simple" required>
+            
+            <button type="submit" name="simple_interest">Hitung Bunga Tunggal</button>
+        </form>
+        
+        <div id="simpleResult"></div>
+
+        <!-- Form Anuitas -->
+        <h2>Anuitas</h2>
+        <form id="annuityForm" action="calculate.php" method="POST">
+            <label for="payment">Pembayaran Tahunan (Rp):</label>
+            <input type="number" id="payment" name="payment" required>
+            
+            <label for="rate_annuity">Suku Bunga (%) per tahun:</label>
+            <input type="number" id="rate_annuity" name="rate_annuity" step="0.01" required>
+            
+            <label for="time_annuity">Waktu (tahun):</label>
+            <input type="number" id="time_annuity" name="time_annuity" required>
+            
+            <button type="submit" name="annuity">Hitung Anuitas</button>
+        </form>
+
+        <div id="annuityResult"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
