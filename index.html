@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,61 +8,46 @@
 </head>
 <body>
     <div class="container">
-        <h1>Kalkulator Bunga dan Anuitas</h1>
-
-        <!-- Form Bunga Majemuk -->
-        <h2>Bunga Majemuk</h2>
-        <form id="compoundInterestForm" action="calculate.php" method="POST">
-            <label for="principal">Modal Awal (Rp):</label>
-            <input type="number" id="principal" name="principal" required>
-            
-            <label for="rate">Suku Bunga (%) per tahun:</label>
-            <input type="number" id="rate" name="rate" step="0.01" required>
-            
-            <label for="time">Waktu (tahun):</label>
-            <input type="number" id="time" name="time" required>
-            
-            <label for="frequency">Frekuensi Kapitalisasi (per tahun):</label>
-            <input type="number" id="frequency" name="frequency" required>
-            
-            <button type="submit" name="compound_interest">Hitung Bunga Majemuk</button>
-        </form>
+        <h1>Kalkulator Keuangan</h1>
         
-        <div id="compoundResult"></div>
+        <!-- Bunga Majemuk -->
+        <div class="card">
+            <h2>Bunga Majemuk</h2>
+            <label for="majemuk-principal">Modal Awal:</label>
+            <input type="number" id="majemuk-principal" placeholder="Masukkan Modal Awal">
+            <label for="majemuk-rate">Bunga (%) per Tahun:</label>
+            <input type="number" id="majemuk-rate" placeholder="Masukkan Persentase Bunga">
+            <label for="majemuk-time">Tahun:</label>
+            <input type="number" id="majemuk-time" placeholder="Masukkan Jumlah Tahun">
+            <button onclick="hitungBungaMajemuk()">Hitung Modal Akhir</button>
+            <p id="hasil-majemuk"></p>
+        </div>
 
-        <!-- Form Bunga Tunggal -->
-        <h2>Bunga Tunggal</h2>
-        <form id="simpleInterestForm" action="calculate.php" method="POST">
-            <label for="principal_simple">Modal Awal (Rp):</label>
-            <input type="number" id="principal_simple" name="principal_simple" required>
-            
-            <label for="rate_simple">Suku Bunga (%) per tahun:</label>
-            <input type="number" id="rate_simple" name="rate_simple" step="0.01" required>
-            
-            <label for="time_simple">Waktu (tahun):</label>
-            <input type="number" id="time_simple" name="time_simple" required>
-            
-            <button type="submit" name="simple_interest">Hitung Bunga Tunggal</button>
-        </form>
-        
-        <div id="simpleResult"></div>
+        <!-- Bunga Tunggal -->
+        <div class="card">
+            <h2>Bunga Tunggal</h2>
+            <label for="tunggal-principal">Modal Awal:</label>
+            <input type="number" id="tunggal-principal" placeholder="Masukkan Modal Awal">
+            <label for="tunggal-rate">Bunga (%) per Tahun:</label>
+            <input type="number" id="tunggal-rate" placeholder="Masukkan Persentase Bunga">
+            <label for="tunggal-time">Tahun:</label>
+            <input type="number" id="tunggal-time" placeholder="Masukkan Jumlah Tahun">
+            <button onclick="hitungBungaTunggal()">Hitung Modal Akhir</button>
+            <p id="hasil-tunggal"></p>
+        </div>
 
-        <!-- Form Anuitas -->
-        <h2>Anuitas</h2>
-        <form id="annuityForm" action="calculate.php" method="POST">
-            <label for="payment">Pembayaran Tahunan (Rp):</label>
-            <input type="number" id="payment" name="payment" required>
-            
-            <label for="rate_annuity">Suku Bunga (%) per tahun:</label>
-            <input type="number" id="rate_annuity" name="rate_annuity" step="0.01" required>
-            
-            <label for="time_annuity">Waktu (tahun):</label>
-            <input type="number" id="time_annuity" name="time_annuity" required>
-            
-            <button type="submit" name="annuity">Hitung Anuitas</button>
-        </form>
-
-        <div id="annuityResult"></div>
+        <!-- Anuitas -->
+        <div class="card">
+            <h2>Anuitas</h2>
+            <label for="anuitas-principal">Pinjaman Awal:</label>
+            <input type="number" id="anuitas-principal" placeholder="Masukkan Pinjaman Awal">
+            <label for="anuitas-rate">Bunga (%) per Tahun:</label>
+            <input type="number" id="anuitas-rate" placeholder="Masukkan Persentase Bunga">
+            <label for="anuitas-time">Tahun:</label>
+            <input type="number" id="anuitas-time" placeholder="Masukkan Jumlah Tahun">
+            <button onclick="hitungAnuitas()">Hitung Anuitas</button>
+            <p id="hasil-anuitas"></p>
+        </div>
     </div>
 
     <script src="script.js"></script>
