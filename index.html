@@ -1,55 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Keuangan</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Perhitungan Keuangan</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 500px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Kalkulator Keuangan</h1>
-        
-        <!-- Bunga Majemuk -->
-        <div class="card">
-            <h2>Bunga Majemuk</h2>
-            <label for="majemuk-principal">Modal Awal:</label>
-            <input type="number" id="majemuk-principal" placeholder="Masukkan Modal Awal">
-            <label for="majemuk-rate">Bunga (%) per Tahun:</label>
-            <input type="number" id="majemuk-rate" placeholder="Masukkan Persentase Bunga">
-            <label for="majemuk-time">Tahun:</label>
-            <input type="number" id="majemuk-time" placeholder="Masukkan Jumlah Tahun">
-            <button onclick="hitungBungaMajemuk()">Hitung Modal Akhir</button>
-            <p id="hasil-majemuk"></p>
-        </div>
-
-        <!-- Bunga Tunggal -->
-        <div class="card">
-            <h2>Bunga Tunggal</h2>
-            <label for="tunggal-principal">Modal Awal:</label>
-            <input type="number" id="tunggal-principal" placeholder="Masukkan Modal Awal">
-            <label for="tunggal-rate">Bunga (%) per Tahun:</label>
-            <input type="number" id="tunggal-rate" placeholder="Masukkan Persentase Bunga">
-            <label for="tunggal-time">Tahun:</label>
-            <input type="number" id="tunggal-time" placeholder="Masukkan Jumlah Tahun">
-            <button onclick="hitungBungaTunggal()">Hitung Modal Akhir</button>
-            <p id="hasil-tunggal"></p>
-        </div>
-
-        <!-- Anuitas -->
-        <div class="card">
-            <h2>Anuitas</h2>
-            <label for="anuitas-principal">Pinjaman Awal:</label>
-            <input type="number" id="anuitas-principal" placeholder="Masukkan Pinjaman Awal">
-            <label for="anuitas-rate">Bunga (%) per Tahun:</label>
-            <input type="number" id="anuitas-rate" placeholder="Masukkan Persentase Bunga">
-            <label for="anuitas-time">Tahun:</label>
-            <input type="number" id="anuitas-time" placeholder="Masukkan Jumlah Tahun">
-            <button onclick="hitungAnuitas()">Hitung Anuitas</button>
-            <p id="hasil-anuitas"></p>
-        </div>
+        <h2>Bunga Majemuk</h2>
+        <input type="number" id="modalAwal" placeholder="Modal Awal (M)" />
+        <input type="number" id="sukuBungaMajemuk" placeholder="Suku Bunga (%)" />
+        <input type="number" id="periodeMajemuk" placeholder="Jumlah Periode (n)" />
+        <button onclick="hitungBungaMajemuk()">Hitung Hasil Bunga Majemuk</button>
+        <div id="hasilMajemuk"></div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="container">
+        <h2>Bunga Tunggal</h2>
+        <input type="number" id="modalAwalTunggal" placeholder="Modal Awal (M)" />
+        <input type="number" id="sukuBungaTunggal" placeholder="Suku Bunga (%)" />
+        <input type="number" id="periodeTunggal" placeholder="Jumlah Periode (thn)" />
+        <button onclick="hitungBungaTunggal()">Hitung Hasil Bunga Tunggal</button>
+        <div id="hasilTunggal"></div>
+    </div>
+
+    <div class="container">
+        <h2>Anuitas</h2>
+        <input type="number" id="anuitas" placeholder="Nilai Anuitas (A)" />
+        <input type="number" id="sukuBungaAnuitas" placeholder="Suku Bunga (%)" />
+        <input type="number" id="periodeAnuitas" placeholder="Jumlah Periode (n)" />
+        <button onclick="hitungAnuitas()">Hitung Nilai Anuitas</button>
+        <div id="hasilAnuitas"></div>
+    </div>
+
+    <script>
+        function formatRupiah(number) {
+            return number.toLocaleString("id-ID", { style: "currency", currency: "IDR" });
+        }
+
+        function createTable(modal, bunga, periode, hasil) {
+            return `
+                <table>
+                    <tr>
+                        <th>Modal Awal</th>
+                        <th>Suku Bunga</th>
+                        <th>Periode</th>
+                        <th>Modal Akhir</th>
+                    </tr>
+                    <tr>
+                        <td>${formatRupiah(modal)}</td>
+                        <td>${bunga}%</td>
+                        <td>${periode}</td>
+                        <td>${formatRupiah(hasil)}</td>
+                    </tr>
+                </table>
+            `;
+        }
+
+        function hitungBungaMajemuk() {
+            const P = parseFloat(document.getElementById("modalAwal").value);
+            const r = parseFloat(document.getElementById("sukuBungaMajemuk").value) / 100;
+            const n = parseFloat(document.getElementById("periodeMajemuk").value);
+
+            const akhir = P * Math.pow((1 + r), n);
+            document.getElementById("hasilMajemuk").innerHTML = createTable(P, r * 100, n, akhir);
+        }
+
+        function hitungBungaTunggal() {
+            const P = parseFloat(document.getElementById("modalAwalTunggal").value);
+            const r = parseFloat(document.getElementById("sukuBungaTunggal").value) / 100;
+            const n = parseFloat(document.getElementById("periodeTunggal").value);
+
+            const akhir = P * (1 + r * n);
+            document.getElementById("hasilTunggal").innerHTML = createTable(P, r * 100, n, akhir);
+        }
+
+        function hitungAnuitas() {
+            const A = parseFloat(document.getElementById("anuitas").value);
+            const r = parseFloat(document.getElementById("sukuBungaAnuitas").value) / 100;
+            const n = parseFloat(document.getElementById("periodeAnuitas").value);
+
+            const nilaiAnuitas = A * ((Math.pow(1 + r, n) - 1) / r);
+            document.getElementById("hasilAnuitas").innerHTML = `
+                <table>
+                    <tr>
+                        <th>Nilai Anuitas</th>
+                        <th>Suku Bunga</th>
+                        <th>Periode</th>
+                        <th>Total Nilai Anuitas</th>
+                    </tr>
+                    <tr>
+                        <td>${formatRupiah(A)}</td>
+                        <td>${(r * 100).toFixed(2)}%</td>
+                        <td>${n}</td>
+                        <td>${formatRupiah(nilaiAnuitas)}</td>
+                    </tr>
+                </table>
+            `;
+        }
+    </script>
 </body>
 </html>
